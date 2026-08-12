@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Menu Portfolio | Custom Web & Print Menus</title>
+  <style>
+    :root {
+      --primary: #e63946;
+      --dark: #1d3557;
+      --light: #f8f9fa;
+      --card-bg: #ffffff;
+      --accent: #ffb703;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+    body { background-color: #f0f2f5; color: #333; line-height: 1.6; }
+
+    /* Top Navigation Bar */
+    .top-navbar {
+      background: #111827;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    /* Profile Photo Placeholder */
+    .profile-photo-placeholder {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #374151;
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: #9ca3af;
+      font-size: 0.75rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .profile-photo-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .nav-right {
+      text-align: right;
+      font-size: 0.95rem;
+    }
+
+    .nav-right strong {
+      color: #ffffff;
+      display: block;
+    }
+
+    .nav-right a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .nav-right a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header { background: var(--dark); color: white; padding: 2.5rem 1rem; text-align: center; }
+    header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.1rem; opacity: 0.9; }
+
+    /* Filter Buttons */
+    .filter-container { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin: 2rem 1rem 1rem; }
+    .filter-btn { background: white; border: 1px solid #ccc; padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; transition: 0.3s; font-weight: 600; }
+    .filter-btn.active, .filter-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* Gallery Grid */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+
+    /* Menu Card */
+    .menu-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .menu-card:hover { transform: translateY(-5px); }
+    .menu-card img { width: 100%; height: 320px; object-fit: cover; border-bottom: 1px solid #eee; }
+
+    .card-body { padding: 1.2rem; }
+    .card-category { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); font-weight: bold; letter-spacing: 1px; }
+    .card-title { font-size: 1.25rem; font-weight: 700; margin: 0.3rem 0; color: var(--dark); }
+    .card-desc { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
+
+    /* Price List Section inside Card */
+    .price-sample { background: var(--light); padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; }
+    .price-item { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .price-item:last-child { margin-bottom: 0; }
+    .price-name { font-weight: 500; }
+    .price-val { font-weight: 700; color: var(--dark); }
+
+    .btn-preview { display: block; width: 100%; text-align: center; background: var(--dark); color: white; text-decoration: none; padding: 0.6rem 0; border-radius: 6px; font-weight: 600; transition: background 0.3s; }
+    .btn-preview:hover { background: var(--primary); }
+
+    /* QR Code & Digital Feature Showcase */
+    .features-section { max-width: 1200px; margin: 3rem auto; padding: 2rem 1rem; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .features-section h2 { text-align: center; color: var(--dark); margin-bottom: 1.5rem; font-size: 1.8rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; text-align: center; }
+    .feature-item { padding: 1rem; background: var(--light); border-radius: 8px; }
+    .feature-item h4 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+    /* CTA Section */
+    .cta-section { text-align: center; background: white; padding: 3rem 1rem; margin-top: 3rem; border-top: 1px solid #e5e5e5; }
+    .cta-btn { background: #25d366; color: white; text-decoration: none; padding: 0.8rem 1.8rem; font-size: 1.1rem; border-radius: 30px; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; margin-top: 1rem; }
+
+    /* Footer */
+    footer { background: #111; color: #ccc; text-align: center; padding: 1.5rem 1rem; margin-top: 2rem; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-navbar">
+    <div class="nav-left">
+      <div class="profile-photo-placeholder">
+        <img src="8M6A9153.jpg" alt="Abdi Abera" onerror="this.style.display='none'; this.parentNode.innerText='Photo';"/>
+      </div>
+    </div>
+    <div class="nav-right">
+      <strong>Designed by Abdi Abera</strong>
+      <span>Phone: <a href="tel:+251925256424">+251925256424</a></span>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Our Restaurant & Cafe Menu Showcase</h1>
+    <p>Custom Digital Web & Print Menu Designs for Ethiopian Restaurants</p>
+  </header>
+
+  <!-- Filter Navigation -->
+  <div class="filter-container">
+    <button class="filter-btn active" data-filter="all">All Layouts</button>
+    <button class="filter-btn" data-filter="steakhouse">Grill & Steakhouse</button>
+    <button class="filter-btn" data-filter="cafe">Cafe & Coffee</button>
+    <button class="filter-btn" data-filter="traditional">Traditional & Hotel</button>
+    <button class="filter-btn" data-filter="fastfood">Fast Food & Pizza</button>
+  </div>
+
+  <!-- Portfolio Gallery -->
+  <main class="gallery-grid">
+
+    <!-- Card 1 -->
+    <div class="menu-card" data-category="steakhouse">
+      <img src="https://graphicsfamily.com/wp-content/uploads/edd/2024/12/Restaurant-Food-Menu-Design-in-Photoshop.jpg" alt="Steakhouse Menu Design">
+      <div class="card-body">
+        <span class="card-category">Grill & Steakhouse</span>
+        <h3 class="card-title">Kesel Special Beef & Grill</h3>
+        <p class="card-desc">Modern dark-theme layout engineered for high-end dining and steakhouses.</p>
+        
+        <div class="price-sample">
+          <div class="price-item"><span class="price-name">Special Tibs</span><span class="price-val">450 ETB</span></div>
+          <div class="price-item"><span class="price-name">Ribeye Steak</span><span class="price-val">680 ETB</span></div>
+          <div class="price-item"><span class="price-name">BBQ Burger Combo</span><span class="price-val">380 ETB</span></div>
+        </div>
+
+        <a href="tel:+251925256424" class="btn-preview">Request This Style</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="menu-card" data-category="cafe">
+      <img src="https://assets.visme.co/templates/banners/thumbnails/i_Cafe-Menu_full.jpg" alt="Cafe Menu Design">
+      <div class="card-body">
+        <span class="card-category">Cafe & Bakery</span>
+        <h3 class="card-title">Minimalist Cafe & Espresso</h3>
+        <p class="card-desc">Clean, warm aesthetic ideal for breakfast spots, pastry shops, and cafes.</p>
+        
+        <div class="price-sample">
+          <div class="price-item"><span class="price-name">Double Espresso</span><span class="price-val">70 ETB</span></div>
+          <div class="price-item"><span class="price-name">Special Cappuccino</span><span class="price-val">110 ETB</span></div>
+          <div class="price-item"><span class="price-name">Chocolate Cake</span><span class="price-val">160 ETB</span></div>
+        </div>
+
+        <a href="tel:+251925256424" class="btn-preview">Request This Style</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="menu-card" data-category="traditional">
+      <img src="https://www.bdtask.com/blog/assets/plugins/ckfinder/core/connector/php/uploads/images/restaurant-menu-design-1.webp" alt="Restaurant Menu Design">
+      <div class="card-body">
+        <span class="card-category">Traditional & Hotel</span>
+        <h3 class="card-title">Hotel & Dining Experience</h3>
+        <p class="card-desc">Multi-page layout crafted for full-service hotel restaurants and traditional dining.</p>
+        
+        <div class="price-sample">
+          <div class="price-item"><span class="price-name">Special Beyaynetu</span><span class="price-val">280 ETB</span></div>
+          <div class="price-item"><span class="price-name">Doro Wot Combo</span><span class="price-val">520 ETB</span></div>
+          <div class="price-item"><span class="price-name">Fresh Avocado Juice</span><span class="price-val">120 ETB</span></div>
+        </div>
+
+        <a href="tel:+251925256424" class="btn-preview">Request This Style</a>
+      </div>
+    </div>
+
+    <!-- Card 4: New Fast Food Card -->
+    <div class="menu-card" data-category="fastfood">
+      <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80" alt="Tasty Chicken & Fast Food Menu">
+      <div class="card-body">
+        <span class="card-category">Fast Food & Pizza</span>
+        <h3 class="card-title">Tasty Chicken & Crispy Fast Food</h3>
+        <p class="card-desc">Vibrant, bold layout designed for quick service, bucket deals, and takeaway spots.</p>
+        
+        <div class="price-sample">
+          <div class="price-item"><span class="price-name">Crispy Chicken Bucket (6pc)</span><span class="price-val">550 ETB</span></div>
+          <div class="price-item"><span class="price-name">Zesty Chicken Wrap</span><span class="price-val">220 ETB</span></div>
+          <div class="price-item"><span class="price-name">Loaded Fries Special</span><span class="price-val">180 ETB</span></div>
+        </div>
+
+        <a href="tel:+251925256424" class="btn-preview">Request This Style</a>
+      </div>
+    </div>
+
+    <!-- Card 5: New Pizzeria Card -->
+    <div class="menu-card" data-category="fastfood">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Pizza & Italian Menu Design">
+      <div class="card-body">
+        <span class="card-category">Fast Food & Pizza</span>
+        <h3 class="card-title">Artisan Pizza & Italian Bistro</h3>
+        <p class="card-desc">Rustically styled layout showcasing pizzas, pastas, and calzones with clear size pricing.</p>
+        
+        <div class="price-sample">
+          <div class="price-item"><span class="price-name">Large Pepperoni Pizza</span><span class="price-val">480 ETB</span></div>
+          <div class="price-item"><span class="price-name">Quattro Formaggi</span><span class="price-val">520 ETB</span></div>
+          <div class="price-item"><span class="price-name">Creamy Alfredo Pasta</span><span class="price-val">340 ETB</span></div>
+        </div>
+
+        <a href="tel:+251925256424" class="btn-preview">Request This Style</a>
+      </div>
+    </div>
+
+    <!-- Card 6: New Juice Bar & Cafe Card -->
+    <div class="menu-card" data-category="cafe">
+      <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80" alt="Juice & Smoothie Bar Menu">
+      <div class="card-body">
+        <span class="card-category">Cafe & Smoothie</span>
+        <h3 class="card-title">Fresh Tropical Juice & Fruit Hub</h3>
+        <p class="card-desc">Refreshing, colorful design crafted for juice bars, smoothie hubs, and fresh fruit spots.</p>
+        
+        <div class="price-sample">
+          <div class="price-item"><span class="price-name">Spris Juice (Layered)</span><span class="price-val">120 ETB</span></div>
+          <div class="price-item"><span class="price-name">Mango Passion Smoothie</span><span class="price-val">140 ETB</span></div>
+          <div class="price-item"><span class="price-name">Special Fruit Salad</span><span class="price-val">190 ETB</span></div>
+        </div>
+
+        <a href="tel:+251925256424" class="btn-preview">Request This Style</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Feature Highlights -->
+  <section class="features-section">
+    <h2>Why Upgrade to a Digital QR Menu?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <h4>Instant Mobile Access</h4>
+        <p>Customers scan a custom QR code on their table to open your menu instantly on their phone with zero app download.</p>
+      </div>
+      <div class="feature-item">
+        <h4>Real-Time Price Updates</h4>
+        <p>Update dish availability or prices in seconds without reprinting paper menus or paying design fees.</p>
+      </div>
+      <div class="feature-item">
+        <h4>WhatsApp Order Link</h4>
+        <p>Allow customers to send direct takeout orders straight to your WhatsApp business contact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2>Need a Custom Web or Print Menu for Your Business?</h2>
+    <p>We create interactive QR code menus and full restaurant web solutions.</p>
+    <a href="https://wa.me/251925256424" class="cta-btn">Order Menu Design on WhatsApp</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Abdi Abera. All rights reserved.</p>
+  </footer>
+
+  <!-- Interactive JavaScript Filtering -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const menuCards = document.querySelectorAll('.menu-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          btn.classList.add('active');
+
+          const filter = btn.getAttribute('data-filter');
+
+          menuCards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+              setTimeout(() => { card.style.opacity = '1'; }, 50);
+            } else {
+              card.style.opacity = '0';
+              setTimeout(() => { card.style.display = 'none'; }, 300);
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
